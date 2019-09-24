@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/mTopLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_400"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/mIvLeft"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:contentDescription="@string/app_name"
+            android:visibility="gone"
+            tools:src="@color/colorPrimary"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/mTvLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:maxLines="1"
+            android:visibility="gone"
+            tools:text="@string/app_name"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/mTvContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="14sp"
+            android:visibility="gone"
+            tools:text="@string/app_name"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/mTvRight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="end"
+            android:maxLines="1"
+            android:textSize="14sp"
+            android:visibility="gone"
+            tools:text="@string/app_name"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/mIvRight"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@string/app_name"
+            android:visibility="gone"
+            tools:src="@color/colorPrimary"
+            tools:visibility="visible" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/mBottomLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_400"
+        android:visibility="gone"
+        tools:visibility="visible" />
+</LinearLayout>
