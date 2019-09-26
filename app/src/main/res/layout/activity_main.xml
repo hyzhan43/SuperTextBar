@@ -56,8 +56,8 @@
             <com.zhan.core.SuperTextBar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:leftText="@string/beat_studio"
                 app:contentText="@string/blue_color"
+                app:leftText="@string/beat_studio"
                 app:padding="10dp"
                 app:rightText="@string/number"
                 app:showBottomLine="true" />
@@ -65,11 +65,13 @@
             <com.zhan.core.SuperTextBar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:leftText="@string/air_pods"
-                app:padding="10dp"
-                app:rightText="@string/number"
                 app:contentGravity="center"
                 app:contentText="@string/white_color"
+                app:leftText="@string/air_pods"
+                app:leftTextSize="10sp"
+                app:padding="10dp"
+                app:rightText="@string/number"
+                app:rightTextSize="20sp"
                 app:showBottomLine="true" />
         </LinearLayout>
 

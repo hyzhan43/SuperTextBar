@@ -29,16 +29,17 @@ class SuperTextBar
 ) : RelativeLayout(context, attrs, defStyle) {
 
 
-    var leftIcon: Int = 0
-    var rightIcon: Int = 0
-
     // 默认字体大小
     private val defaultSize = 14f.sp2px
     private val defaultColor = Color.BLACK
-
     private val defaultDrawable = 0
     private val defaultLineColor = getColorRef(R.color.grey_400)
 
+    private val wholeSize: Float
+
+    var leftIcon: Int = 0
+    var leftTextSize: Float
+    var leftTextColor: Int
     var leftText: String = ""
         set(value) {
             field = value
@@ -47,28 +48,26 @@ class SuperTextBar
         }
 
 
-    var leftTextSize: Float
-    var leftTextColor: Int
-
-
+    var contentTextSize: Float
+    var contentTextColor: Int
+    val contentGravity: Int
     var contentText: String = ""
         set(value) {
             field = value
             mTvContent.visible()
             mTvContent.text = value
         }
-    var contentTextSize: Float
-    var contentTextColor: Int
-    val contentGravity: Int
 
+
+    var rightIcon: Int = 0
+    var rightTextSize: Float
+    var rightTextColor: Int
     var rightText: String = ""
         set(value) {
             field = value
             mTvRight.visible()
             mTvRight.text = value
         }
-    var rightTextSize: Float
-    var rightTextColor: Int
 
     var showTopLine: Boolean
     var showBottomLine: Boolean
@@ -84,6 +83,7 @@ class SuperTextBar
         val typeArray = context.obtainStyledAttributes(attrs, R.styleable.SuperTextBar, defStyle, 0)
         with(typeArray) {
             padding = getDimensionPixelSize(R.styleable.SuperTextBar_padding, 0)
+            wholeSize = getDimension(R.styleable.SuperTextBar_textSize, defaultSize)
 
             leftIcon = getResourceId(R.styleable.SuperTextBar_leftIcon, defaultDrawable)
             rightIcon = getResourceId(R.styleable.SuperTextBar_rightIcon, defaultDrawable)
@@ -150,9 +150,19 @@ class SuperTextBar
         textView.run {
             visible()
             text = content
-            setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, getTextSize(textSize))
             setTextColor(textColor)
         }
+    }
+
+    private fun getTextSize(textSize: Float) = if (hasSetupTextSize()) {
+        wholeSize
+    } else {
+        textSize
+    }
+
+    private fun hasSetupTextSize(): Boolean {
+        return wholeSize != defaultSize
     }
 
     private fun setImageSrc(imageView: ImageView, iconRes: Int) {
