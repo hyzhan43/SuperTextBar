@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">SuperTextBar</string>
     <string name="collect">收藏</string>
+    <string name="sex">性别</string>
+    <string name="task_center">任务中心</string>
+    <string name="things">购买商品</string>
+    <string name="beat_studio">BeatsStudio</string>
+    <string name="number">x2</string>
+    <string name="air_pods">airpods</string>
+    <string name="blue_color">蓝色</string>
+    <string name="white_color">白色</string>
 </resources>

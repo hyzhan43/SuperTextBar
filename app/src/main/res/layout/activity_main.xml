@@ -17,18 +17,61 @@
     <com.zhan.core.SuperTextBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:leftIcon="@drawable/ic_love"
-        app:leftText="@string/collect"
+        app:leftIcon="@drawable/ic_sex"
+        app:leftText="@string/sex"
         app:padding="10dp"
         app:rightIcon="@drawable/ic_arrow"
+        app:rightText="男"
         app:showBottomLine="true" />
 
     <com.zhan.core.SuperTextBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:leftIcon="@drawable/ic_love"
-        app:leftText="@string/collect"
+        app:leftText="@string/task_center"
         app:padding="10dp"
         app:rightIcon="@drawable/ic_arrow"
         app:showBottomLine="true" />
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/things"
+                android:textColor="@android:color/black" />
+
+            <com.zhan.core.SuperTextBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:leftText="@string/beat_studio"
+                app:contentText="@string/blue_color"
+                app:padding="10dp"
+                app:rightText="@string/number"
+                app:showBottomLine="true" />
+
+            <com.zhan.core.SuperTextBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:leftText="@string/air_pods"
+                app:padding="10dp"
+                app:rightText="@string/number"
+                app:contentGravity="center"
+                app:contentText="@string/white_color"
+                app:showBottomLine="true" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 </LinearLayout>
