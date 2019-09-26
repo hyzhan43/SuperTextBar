@@ -2,6 +2,7 @@ package com.zhan.core
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -36,7 +37,9 @@ class SuperTextBar
     private val defaultLineColor = getColorRef(R.color.grey_400)
 
     private val wholeSize: Float
+    private val wholeStyle: Int
 
+    val leftTextStyle: Int
     var leftIcon: Int = 0
     var leftTextSize: Float
     var leftTextColor: Int
@@ -48,6 +51,7 @@ class SuperTextBar
         }
 
 
+    val contentTextStyle: Int
     var contentTextSize: Float
     var contentTextColor: Int
     val contentGravity: Int
@@ -59,6 +63,7 @@ class SuperTextBar
         }
 
 
+    val rightTextStyle: Int
     var rightIcon: Int = 0
     var rightTextSize: Float
     var rightTextColor: Int
@@ -84,6 +89,7 @@ class SuperTextBar
         with(typeArray) {
             padding = getDimensionPixelSize(R.styleable.SuperTextBar_padding, 0)
             wholeSize = getDimension(R.styleable.SuperTextBar_textSize, defaultSize)
+            wholeStyle = getInt(R.styleable.SuperTextBar_textStyle, Typeface.NORMAL)
 
             leftIcon = getResourceId(R.styleable.SuperTextBar_leftIcon, defaultDrawable)
             rightIcon = getResourceId(R.styleable.SuperTextBar_rightIcon, defaultDrawable)
@@ -91,15 +97,18 @@ class SuperTextBar
             leftText = getString(R.styleable.SuperTextBar_leftText) ?: ""
             leftTextSize = getDimension(R.styleable.SuperTextBar_leftTextSize, defaultSize)
             leftTextColor = getColor(R.styleable.SuperTextBar_leftTextColor, defaultColor)
+            leftTextStyle = getInt(R.styleable.SuperTextBar_leftTextStyle, Typeface.NORMAL)
 
             contentText = getString(R.styleable.SuperTextBar_contentText) ?: ""
             contentTextSize = getDimension(R.styleable.SuperTextBar_contentTextSize, defaultSize)
             contentTextColor = getColor(R.styleable.SuperTextBar_contentTextColor, defaultColor)
             contentGravity = getInt(R.styleable.SuperTextBar_contentGravity, GravityEnum.START.code)
+            contentTextStyle = getInt(R.styleable.SuperTextBar_contentTextStyle, Typeface.NORMAL)
 
             rightText = getString(R.styleable.SuperTextBar_rightText) ?: ""
             rightTextSize = getDimension(R.styleable.SuperTextBar_rightTextSize, defaultSize)
             rightTextColor = getColor(R.styleable.SuperTextBar_rightTextColor, defaultColor)
+            rightTextStyle = getInt(R.styleable.SuperTextBar_rightTextStyle, Typeface.NORMAL)
 
             showTopLine = getBoolean(R.styleable.SuperTextBar_showTopLine, false)
             showBottomLine = getBoolean(R.styleable.SuperTextBar_showBottomLine, false)
@@ -123,9 +132,9 @@ class SuperTextBar
         setImageSrc(mIvRight, rightIcon)
 
         mTvContent.gravity = gainContentGravity()
-        setTextView(mTvContent, contentText, contentTextSize, contentTextColor)
-        setTextView(mTvLeft, leftText, leftTextSize, leftTextColor)
-        setTextView(mTvRight, rightText, rightTextSize, rightTextColor)
+        setTextView(mTvContent, contentText, contentTextSize, contentTextColor, contentTextStyle)
+        setTextView(mTvLeft, leftText, leftTextSize, leftTextColor, leftTextStyle)
+        setTextView(mTvRight, rightText, rightTextSize, rightTextColor, rightTextStyle)
 
         mTopLine.apply { if (showTopLine) visible() else gone() }
         mBottomLine.apply { if (showBottomLine) visible() else gone() }
@@ -140,7 +149,9 @@ class SuperTextBar
         }
     }
 
-    private fun setTextView(textView: TextView, content: String, textSize: Float, textColor: Int) {
+    private fun setTextView(
+        textView: TextView, content: String, textSize: Float, textColor: Int, textStyle: Int
+    ) {
 
         if (content.isEmpty()) {
             textView.gone()
@@ -150,9 +161,20 @@ class SuperTextBar
         textView.run {
             visible()
             text = content
+            typeface = Typeface.defaultFromStyle(getTextStyle(textStyle))
             setTextSize(TypedValue.COMPLEX_UNIT_PX, getTextSize(textSize))
             setTextColor(textColor)
         }
+    }
+
+    private fun getTextStyle(textStyle: Int): Int = if (hasSetupTextStyle()) {
+        wholeStyle
+    } else {
+        textStyle
+    }
+
+    private fun hasSetupTextStyle(): Boolean {
+        return wholeStyle != Typeface.NORMAL
     }
 
     private fun getTextSize(textSize: Float) = if (hasSetupTextSize()) {

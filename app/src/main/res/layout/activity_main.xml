@@ -60,6 +60,8 @@
                 app:leftText="@string/beat_studio"
                 app:padding="10dp"
                 app:rightText="@string/number"
+                app:leftTextStyle="italic"
+                app:textStyle="bold"
                 app:showBottomLine="true" />
 
             <com.zhan.core.SuperTextBar
