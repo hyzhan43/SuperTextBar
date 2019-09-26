@@ -1,16 +1,17 @@
 package com.zhan.core
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.zhan.hy.ext.getColorRef
-import com.zhan.hy.ext.gone
-import com.zhan.hy.ext.sp2px
-import com.zhan.hy.ext.visible
+import androidx.core.view.setPadding
+import com.zhan.ktwing.ext.gone
+import com.zhan.ktwing.ext.sp2px
+import com.zhan.ktwing.ext.visible
 import kotlinx.android.synthetic.main.super_textbar_view.view.*
 
 /**
@@ -18,7 +19,8 @@ import kotlinx.android.synthetic.main.super_textbar_view.view.*
  *  @date:    2019/7/25
  *  @desc:    TODO
  */
-class SuperTextBar @JvmOverloads constructor(
+class SuperTextBar
+@JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyle: Int = 0
@@ -30,7 +32,7 @@ class SuperTextBar @JvmOverloads constructor(
 
     // 默认字体大小
     private val defaultSize = 14f.sp2px
-    private val defaultColor = getColorRef(R.color.colorPrimary)
+    private val defaultColor = Color.BLACK
 
     var leftText: String = ""
         set(value) {
@@ -38,6 +40,8 @@ class SuperTextBar @JvmOverloads constructor(
             mTvLeft.visible()
             mTvLeft.text = value
         }
+
+
     var leftTextSize: Float
     var leftTextColor: Int
 
@@ -63,11 +67,18 @@ class SuperTextBar @JvmOverloads constructor(
     var showTopLine: Boolean
     var showBottomLine: Boolean
 
+    var padding: Int
+
+    val topLineColor: Int
+    val bottomLineColor: Int
+
     init {
         View.inflate(context, R.layout.super_textbar_view, this)
 
         val typeArray = context.obtainStyledAttributes(attrs, R.styleable.SuperTextBar, defStyle, 0)
         with(typeArray) {
+            padding = getDimensionPixelSize(R.styleable.SuperTextBar_padding, 0)
+
             leftIcon = getResourceId(R.styleable.SuperTextBar_leftIcon, smileDrawable)
             rightIcon = getResourceId(R.styleable.SuperTextBar_rightIcon, smileDrawable)
 
@@ -85,6 +96,10 @@ class SuperTextBar @JvmOverloads constructor(
 
             showTopLine = getBoolean(R.styleable.SuperTextBar_showTopLine, false)
             showBottomLine = getBoolean(R.styleable.SuperTextBar_showBottomLine, false)
+
+            topLineColor = getColor(R.styleable.SuperTextBar_topLineColor, defaultColor)
+            bottomLineColor = getColor(R.styleable.SuperTextBar_bottomLineColor, defaultColor)
+
             recycle()
         }
 
@@ -92,6 +107,10 @@ class SuperTextBar @JvmOverloads constructor(
     }
 
     private fun drawSuperBar() {
+        mLlContainer.setPadding(padding)
+
+        mTopLine.setBackgroundColor(topLineColor)
+        mBottomLine.setBackgroundColor(bottomLineColor)
 
         setImageSrc(mIvLeft, leftIcon)
         setImageSrc(mIvRight, rightIcon)

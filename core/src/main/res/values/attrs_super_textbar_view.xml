@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SuperTextBar">
+        <attr name="padding" format="dimension"/>
+
         <attr name="showTopLine" format="boolean"/>
         <attr name="showBottomLine" format="boolean"/>
 
-        <attr name="showLeftIcon" format="boolean"/>
-        <attr name="showRightIcon" format="boolean"/>
+        <attr name="topLineColor" format="color"/>
+        <attr name="bottomLineColor" format="color"/>
 
         <attr name="leftIcon" format="reference" />
         <attr name="leftText" format="string" />
