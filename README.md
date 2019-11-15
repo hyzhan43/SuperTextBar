@@ -2,6 +2,8 @@
 
 [![](https://jitpack.io/v/hyzhan43/SuperTextBar.svg)](https://jitpack.io/#hyzhan43/SuperTextBar)
 
+![](https://github.com/hyzhan43/SuperTextBar/raw/master/images/ic_picture.png)
+
 # Step1
 ```java
 allprojects {
