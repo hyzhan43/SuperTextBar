@@ -33,6 +33,18 @@
         app:showBottomLine="true" />
 
 
+    <com.zhan.core.SuperTextBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:leftText="@string/task_center"
+        app:padding="10dp"
+        app:rightIcon="@drawable/ic_arrow"
+        app:showTopLine="true"
+        app:showBottomLine="true" />
+
+
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,11 +70,11 @@
                 android:layout_height="wrap_content"
                 app:contentText="@string/blue_color"
                 app:leftText="@string/beat_studio"
+                app:leftTextStyle="italic"
                 app:padding="10dp"
                 app:rightText="@string/number"
-                app:leftTextStyle="italic"
-                app:textStyle="bold"
-                app:showBottomLine="true" />
+                app:showBottomLine="true"
+                app:textStyle="bold" />
 
             <com.zhan.core.SuperTextBar
                 android:layout_width="match_parent"
