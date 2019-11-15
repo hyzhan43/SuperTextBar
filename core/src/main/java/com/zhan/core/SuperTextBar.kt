@@ -29,7 +29,6 @@ class SuperTextBar
     defStyle: Int = 0
 ) : RelativeLayout(context, attrs, defStyle) {
 
-
     // 默认字体大小
     private val defaultSize = 14f.sp2px
     private val defaultColor = Color.BLACK
@@ -50,6 +49,7 @@ class SuperTextBar
             mTvLeft.text = value
         }
 
+    var leftTextInfo: TextInfo
 
     val contentTextStyle: Int
     var contentTextSize: Float
@@ -62,6 +62,8 @@ class SuperTextBar
             mTvContent.text = value
         }
 
+    var contentTextInfo: TextInfo
+
 
     val rightTextStyle: Int
     var rightIcon: Int = 0
@@ -73,6 +75,8 @@ class SuperTextBar
             mTvRight.visible()
             mTvRight.text = value
         }
+
+    var rightTextInfo: TextInfo
 
     var showTopLine: Boolean
     var showBottomLine: Boolean
@@ -87,9 +91,13 @@ class SuperTextBar
 
         val typeArray = context.obtainStyledAttributes(attrs, R.styleable.SuperTextBar, defStyle, 0)
         with(typeArray) {
+            showTopLine = getBoolean(R.styleable.SuperTextBar_showTopLine, false)
+            showBottomLine = getBoolean(R.styleable.SuperTextBar_showBottomLine, false)
+
+            topLineColor = getColor(R.styleable.SuperTextBar_topLineColor, defaultLineColor)
+            bottomLineColor = getColor(R.styleable.SuperTextBar_bottomLineColor, defaultLineColor)
+
             padding = getDimensionPixelSize(R.styleable.SuperTextBar_padding, 0)
-            wholeSize = getDimension(R.styleable.SuperTextBar_textSize, defaultSize)
-            wholeStyle = getInt(R.styleable.SuperTextBar_textStyle, Typeface.NORMAL)
 
             leftIcon = getResourceId(R.styleable.SuperTextBar_leftIcon, defaultDrawable)
             rightIcon = getResourceId(R.styleable.SuperTextBar_rightIcon, defaultDrawable)
@@ -99,22 +107,25 @@ class SuperTextBar
             leftTextColor = getColor(R.styleable.SuperTextBar_leftTextColor, defaultColor)
             leftTextStyle = getInt(R.styleable.SuperTextBar_leftTextStyle, Typeface.NORMAL)
 
+            leftTextInfo = TextInfo(leftText, leftTextSize, leftTextColor, leftTextStyle)
+
             contentText = getString(R.styleable.SuperTextBar_contentText) ?: ""
             contentTextSize = getDimension(R.styleable.SuperTextBar_contentTextSize, defaultSize)
             contentTextColor = getColor(R.styleable.SuperTextBar_contentTextColor, defaultColor)
             contentGravity = getInt(R.styleable.SuperTextBar_contentGravity, GravityEnum.START.code)
             contentTextStyle = getInt(R.styleable.SuperTextBar_contentTextStyle, Typeface.NORMAL)
 
+            contentTextInfo = TextInfo(contentText, contentTextSize, contentTextColor, contentTextStyle)
+
             rightText = getString(R.styleable.SuperTextBar_rightText) ?: ""
             rightTextSize = getDimension(R.styleable.SuperTextBar_rightTextSize, defaultSize)
             rightTextColor = getColor(R.styleable.SuperTextBar_rightTextColor, defaultColor)
             rightTextStyle = getInt(R.styleable.SuperTextBar_rightTextStyle, Typeface.NORMAL)
 
-            showTopLine = getBoolean(R.styleable.SuperTextBar_showTopLine, false)
-            showBottomLine = getBoolean(R.styleable.SuperTextBar_showBottomLine, false)
+            rightTextInfo = TextInfo(rightText, rightTextSize, rightTextColor, rightTextStyle)
 
-            topLineColor = getColor(R.styleable.SuperTextBar_topLineColor, defaultLineColor)
-            bottomLineColor = getColor(R.styleable.SuperTextBar_bottomLineColor, defaultLineColor)
+            wholeSize = getDimension(R.styleable.SuperTextBar_textSize, defaultSize)
+            wholeStyle = getInt(R.styleable.SuperTextBar_textStyle, Typeface.NORMAL)
 
             recycle()
         }
@@ -132,9 +143,22 @@ class SuperTextBar
         setImageSrc(mIvRight, rightIcon)
 
         mTvContent.gravity = gainContentGravity()
-        setTextView(mTvContent, contentText, contentTextSize, contentTextColor, contentTextStyle)
-        setTextView(mTvLeft, leftText, leftTextSize, leftTextColor, leftTextStyle)
-        setTextView(mTvRight, rightText, rightTextSize, rightTextColor, rightTextStyle)
+
+        if (wholeSize != defaultSize){
+            leftTextInfo.textSize = wholeSize
+            contentTextInfo.textSize = wholeSize
+            rightTextInfo.textSize = wholeSize
+        }
+
+        if (wholeStyle != Typeface.NORMAL){
+            leftTextInfo.textStyle = wholeStyle
+            contentTextInfo.textStyle = wholeStyle
+            rightTextInfo.textStyle = wholeStyle
+        }
+
+        leftTextInfo.setTextView(mTvLeft)
+        contentTextInfo.setTextView(mTvContent)
+        rightTextInfo.setTextView(mTvRight)
 
         mTopLine.apply { if (showTopLine) visible() else gone() }
         mBottomLine.apply { if (showBottomLine) visible() else gone() }
@@ -148,42 +172,6 @@ class SuperTextBar
             else -> Gravity.START
         }
     }
-
-    private fun setTextView(
-        textView: TextView, content: String, textSize: Float, textColor: Int, textStyle: Int
-    ) {
-
-        if (content.isEmpty()) {
-            textView.gone()
-            return
-        }
-
-        textView.run {
-            visible()
-            text = content
-            typeface = Typeface.defaultFromStyle(getTextStyle(textStyle))
-            setTextSize(TypedValue.COMPLEX_UNIT_PX, getTextSize(textSize))
-            setTextColor(textColor)
-        }
-    }
-
-    private fun getTextStyle(textStyle: Int): Int = if (hasSetupTextStyle()) {
-        wholeStyle
-    } else {
-        textStyle
-    }
-
-    private fun hasSetupTextStyle(): Boolean = wholeStyle != Typeface.NORMAL
-
-
-    private fun getTextSize(textSize: Float) = if (hasSetupTextSize()) {
-        wholeSize
-    } else {
-        textSize
-    }
-
-    private fun hasSetupTextSize(): Boolean = wholeSize != defaultSize
-
 
     private fun setImageSrc(imageView: ImageView, iconRes: Int) {
         if (iconRes == defaultDrawable) {
