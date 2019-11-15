@@ -173,9 +173,8 @@ class SuperTextBar
         textStyle
     }
 
-    private fun hasSetupTextStyle(): Boolean {
-        return wholeStyle != Typeface.NORMAL
-    }
+    private fun hasSetupTextStyle(): Boolean = wholeStyle != Typeface.NORMAL
+
 
     private fun getTextSize(textSize: Float) = if (hasSetupTextSize()) {
         wholeSize
@@ -183,9 +182,8 @@ class SuperTextBar
         textSize
     }
 
-    private fun hasSetupTextSize(): Boolean {
-        return wholeSize != defaultSize
-    }
+    private fun hasSetupTextSize(): Boolean = wholeSize != defaultSize
+
 
     private fun setImageSrc(imageView: ImageView, iconRes: Int) {
         if (iconRes == defaultDrawable) {
