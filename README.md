@@ -37,7 +37,7 @@ dependencies {
 
 # 更多用法
 
-## Attributes属性（plateView布局文件中调用）
+## Attributes属性（SuperTextBar布局文件中调用）
 |Attributes         | Format        | Describe
 |---                | ---           | ---|
 showTopLine         | boolean       | 显示顶部分割线 默认`false`不显示
