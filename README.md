@@ -35,29 +35,6 @@ dependencies {
         app:showBottomLine="true" />
 ```
 
-在xml 中声明  PlateView 控件
-
-```kotlin
-package com.zhan.licenseplateedittext
-
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_main.*
-
-class MainActivity : AppCompatActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        mPlateView.plate = "粤A11111"
-        // 绑定 切换新能源车牌 View
-        mPlateView.setTriggerView(mTvHint)
-    }
-}
-
-```
-
 如需新能源车牌，则需要绑定 切换新能源车牌 View。调用 `setTriggerView` 方法.
 
 # 更多用法
